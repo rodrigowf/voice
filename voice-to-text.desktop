@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Voice to Text
+Comment=Voice-to-Text transcription application
+Exec=/home/rodrigo/Projects/voice/run.sh
+Icon=/home/rodrigo/Projects/voice/icon.png
+Terminal=false
+Categories=Utility;TextTools;
+Keywords=voice;transcription;whisper;
+StartupNotify=true 
