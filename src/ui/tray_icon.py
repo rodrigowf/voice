@@ -171,6 +171,18 @@ class TrayIcon:
             except Exception as e:
                 logger.error(f"Failed to update icon state: {e}", exc_info=True)
                 
+    def set_processing_state(self, is_processing):
+        """Update icon color based on processing state"""
+        if self.icon:
+            try:
+                logger.debug(f"Setting processing state: {is_processing}")
+                color = Config.ICON_COLOR_PROCESSING if is_processing else Config.ICON_COLOR_IDLE
+                self.icon.icon = self.create_icon(color)
+                # Update tooltip
+                self.icon.title = "Processing..." if is_processing else "Voice to Text (Hold F4)"
+            except Exception as e:
+                logger.error(f"Failed to update processing state: {e}", exc_info=True)
+                
     def cleanup(self):
         """Clean up resources"""
         logger.debug("Cleaning up tray icon")

@@ -27,11 +27,16 @@ class Config:
     MAX_AUDIO_LENGTH = 30.0  # Maximum audio length in seconds
     SILENCE_THRESHOLD = 0.01  # Slightly lower threshold for better sensitivity
     
+    # Volume Control Settings
+    RECORDING_VOLUME = 30  # Volume percentage during recording
+    SHOULD_ADJUST_VOLUME = False  # Whether to automatically adjust volume
+    
     # Application Settings
     HOTKEY = 'f4'
     ICON_SIZE = 24  # Smaller icon size for better visibility
     ICON_COLOR_IDLE = 'green'
     ICON_COLOR_RECORDING = 'red'
+    ICON_COLOR_PROCESSING = 'purple'  # New color for processing state
     
     # Paths
     TEMP_DIR = Path(os.getenv('TEMP', tempfile.gettempdir()))
@@ -63,6 +68,10 @@ class Config:
             
         if cls.MIN_AUDIO_LENGTH <= 0 or cls.MAX_AUDIO_LENGTH <= cls.MIN_AUDIO_LENGTH:
             errors.append("Invalid audio length settings")
+            
+        # Validate volume settings
+        if not isinstance(cls.RECORDING_VOLUME, int) or not 0 <= cls.RECORDING_VOLUME <= 100:
+            errors.append("RECORDING_VOLUME must be an integer between 0 and 100")
             
         # Ensure temp directory exists and is writable
         try:

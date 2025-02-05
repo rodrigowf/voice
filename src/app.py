@@ -62,7 +62,7 @@ class VoiceToTextApp:
         try:
             self.is_recording = False
             self.recorder.stop()
-            self.tray_icon.set_recording_state(False)
+            self.tray_icon.set_processing_state(True)  # Show processing state
             
             if self.recording_thread and self.recording_thread.is_alive():
                 self.recording_thread.join(timeout=1.0)
@@ -71,6 +71,8 @@ class VoiceToTextApp:
             
         except Exception as e:
             logger.error(f"Failed to stop recording: {e}")
+        finally:
+            self.tray_icon.set_processing_state(False)  # Return to idle state
             
     def _record_audio(self):
         """Record audio in a separate thread"""
